@@ -1,17 +1,21 @@
 //
-//  captionaryApp.swift
-//  captionary
+//  CaptionaryApp.swift
+//  Captionary
 //
-//  Created by Jude Okun on 06/10/2025.
+//  Created by Claude on 2025-10-06.
+//  Main app entry point
 //
 
 import SwiftUI
 
 @main
-struct captionaryApp: App {
+struct CaptionaryApp: App {
+    @StateObject private var sessionVM = SessionVM()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(sessionVM)
         }
     }
 }
