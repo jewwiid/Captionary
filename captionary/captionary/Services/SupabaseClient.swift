@@ -18,11 +18,17 @@ class SupabaseClient: ObservableObject {
     @Published var isAuthenticated = false
     
     private init() {
-        // Initialize Supabase client with project URL and anon key
-        // TODO: Move to Secrets.plist for production
+        // Initialize Supabase client with project URL and anon key from Secrets.plist
+        let secrets = SecretsManager.shared
+        
+        guard let supabaseURL = secrets.supabaseURL,
+              let supabaseKey = secrets.supabaseAnonKey else {
+            fatalError("Missing Supabase configuration in Secrets.plist")
+        }
+        
         self.supabase = SupabaseClient(
-            supabaseURL: URL(string: "YOUR_SUPABASE_URL")!,
-            supabaseKey: "YOUR_SUPABASE_ANON_KEY"
+            supabaseURL: supabaseURL,
+            supabaseKey: supabaseKey
         )
         
         // Check for existing session
